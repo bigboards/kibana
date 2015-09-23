@@ -46,6 +46,11 @@ module.exports = function (grunt) {
           if (!err) return resolve(); // skip downloading if we already have them
           var file = filesPatern({ version: version, platform: platform });
           var url = urlPattern({ version: version, file: file });
+
+          if (platform === 'linux-armhf') {
+            // BIGBOARDS: Adept the url and file to match armhf tgz file
+          }
+
           mkdirp(dest, function (err) {
             if (err) return reject(err);
             var unzip = zlib.createGunzip();
@@ -59,7 +64,8 @@ module.exports = function (grunt) {
       });
     };
 
-    return Promise.map(platforms, download).then(downloadWindows).nodeify(this.async());
+    //return Promise.map(platforms, download).then(downloadWindows).nodeify(this.async());
+    return Promise.map(platforms, download).nodeify(this.async());
   });
 };
 

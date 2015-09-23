@@ -25,7 +25,7 @@ function createPackages(grunt) {
       var options = { cwd: distPath };
       var archiveName = join(target, name);
       var commands = [];
-      var arch = /x64$/.test(name) ? 'x86_64' : 'i686';
+      var arch = /x64$/.test(name) ? 'x86_64' : ( /armhf$/ ? 'armhf' : 'i686');
 
       var fpm_options = [ 'fpm', '-f', '-p', target, '-s', 'dir', '-n', 'kibana', '-v', version,
                           '--after-install', join(distPath, 'user', 'installer.sh'),
